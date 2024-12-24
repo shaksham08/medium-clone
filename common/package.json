@@ -1,0 +1,19 @@
+{
+  "name": "@shaksham08/medium-common",
+  "version": "1.0.4",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "tsc -b"
+  },
+  "keywords": [],
+  "author": "", 
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}
