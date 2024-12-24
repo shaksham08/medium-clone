@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
+import { createBlogInput, updateBlogInput } from "@shaksham08/medium-common";
 import { Hono } from "hono";
 import { verify } from "hono/jwt";
 
@@ -32,6 +33,14 @@ blogRouter.post("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
+  const { success } = createBlogInput.safeParse(body);
+  if (!success) {
+    c.status(411);
+    return c.json({
+      message: "Inputs are not valid",
+    });
+  }
+
   const blog = await prisma.blog.create({
     data: {
       title: body.title,
@@ -50,6 +59,14 @@ blogRouter.put("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
+
+  const { success } = updateBlogInput.safeParse(body);
+  if (!success) {
+    c.status(411);
+    return c.json({
+      message: "Inputs are not valid",
+    });
+  }
 
   const blog = await prisma.blog.update({
     where: {
